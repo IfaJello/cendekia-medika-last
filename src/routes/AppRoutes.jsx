@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 import AppLayout from "../components/layout/AppLayout";
 import Login from "../pages/auth/Login";
@@ -8,15 +13,21 @@ function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        {/* Authentication */}
+        <Route path="/" element={<Login />} />
 
+        {/* Main application */}
+        <Route element={<AppLayout />}>
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
+        </Route>
+
+        {/* Fallback */}
         <Route
-          path="/"
-          element={
-            <AppLayout>
-              <Dashboard />
-            </AppLayout>
-          }
+          path="*"
+          element={<Navigate to="/" replace />}
         />
       </Routes>
     </BrowserRouter>

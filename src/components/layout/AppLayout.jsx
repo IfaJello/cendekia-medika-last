@@ -1,16 +1,30 @@
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
-function AppLayout({ children }) {
+function AppLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="app-layout">
       <Sidebar />
 
+      {sidebarOpen && (
+        <button
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close menu"
+        />
+      )}
+
       <div className="main-area">
-        <Topbar />
+        <Topbar
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+        />
 
         <main className="page-content">
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>

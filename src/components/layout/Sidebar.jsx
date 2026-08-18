@@ -1,89 +1,113 @@
+import logo from "../../assets/images/cendekia-medika-logo.png";
 import {
-  LayoutDashboard,
-  Users,
-  ClipboardList,
-  HeartPulse,
-  FileText,
   BarChart3,
-  Settings,
+  ClipboardList,
+  FileText,
+  HeartPulse,
+  LayoutDashboard,
   LogOut,
+  Settings,
+  Stethoscope,
+  Users,
 } from "lucide-react";
-
-const menuItems = [
-  {
-    label: "Dashboard",
-    icon: LayoutDashboard,
-    path: "/",
-  },
-  {
-    label: "Patients",
-    icon: Users,
-    path: "/patients",
-  },
-  {
-    label: "Assessment",
-    icon: ClipboardList,
-    path: "/assessments",
-  },
-  {
-    label: "Nursing Care",
-    icon: HeartPulse,
-    path: "/nursing-care",
-  },
-  {
-    label: "Documentation",
-    icon: FileText,
-    path: "/documentation",
-  },
-  {
-    label: "Reports",
-    icon: BarChart3,
-    path: "/reports",
-  },
-];
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
+  const navigate = useNavigate();
+
+  const navigation = [
+    {
+      label: "Dashboard",
+      icon: LayoutDashboard,
+      path: "/dashboard",
+    },
+    {
+      label: "Patients",
+      icon: Users,
+      path: "/patients",
+    },
+    {
+      label: "Nursing Assessment",
+      icon: Stethoscope,
+      path: "/assessments",
+    },
+    {
+      label: "Nursing Care",
+      icon: HeartPulse,
+      path: "/nursing-care",
+    },
+    {
+      label: "Documentation",
+      icon: FileText,
+      path: "/documentation",
+    },
+    {
+      label: "Reports",
+      icon: BarChart3,
+      path: "/reports",
+    },
+  ];
+
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="brand-logo">CM</div>
+        <div className="sidebar-logo">
+          <img
+            src={logo}
+            alt="Cendekia Medika"
+          />
+        </div>
 
         <div>
-          <h1>Cendekia Medika</h1>
+          <strong>Cendekia Medika</strong>
           <span>Nursing Information System</span>
         </div>
       </div>
 
-      <nav className="sidebar-nav">
-        <p className="nav-section-title">MAIN MENU</p>
+      <nav className="sidebar-navigation">
+        <p className="navigation-label">
+          MAIN MENU
+        </p>
 
-        {menuItems.map((item) => {
+        {navigation.map((item) => {
           const Icon = item.icon;
 
           return (
-            <a
-              href={item.path}
-              className={`nav-item ${item.path === "/" ? "active" : ""}`}
-              key={item.label}
+            <NavLink
+              key={item.path}
+              to={item.path}
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
             >
-              <Icon size={20} />
+              <Icon size={19} />
               <span>{item.label}</span>
-            </a>
+            </NavLink>
           );
         })}
 
-        <p className="nav-section-title settings-title">SYSTEM</p>
+        <p className="navigation-label settings-label">
+          SYSTEM
+        </p>
 
-        <a href="/settings" className="nav-item">
-          <Settings size={20} />
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            `sidebar-link ${isActive ? "active" : ""}`
+          }
+        >
+          <Settings size={19} />
           <span>Settings</span>
-        </a>
+        </NavLink>
       </nav>
 
-      <div className="sidebar-footer">
-        <button className="logout-button">
-          <LogOut size={20} />
-          <span>Sign Out</span>
+      <div className="sidebar-bottom">
+        <button
+          className="logout-button"
+          onClick={() => navigate("/")}
+        >
+          <LogOut size={19} />
+          <span>Sign out</span>
         </button>
       </div>
     </aside>

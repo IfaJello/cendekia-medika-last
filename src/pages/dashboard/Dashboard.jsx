@@ -1,67 +1,160 @@
-function Dashboard() {
-  return (
-    <div className="dashboard-page">
-      <div className="page-header">
-        <div>
-          <p className="page-eyebrow">OVERVIEW</p>
+import {
+  Activity,
+  ArrowUpRight,
+  BedDouble,
+  ClipboardCheck,
+  UserRound,
+  Users,
+} from "lucide-react";
+import "./Dashboard.css";
 
-          <h1>Good morning, Nurse Staff</h1>
+function Dashboard() {
+  const statistics = [
+    {
+      title: "Total Patients",
+      value: "128",
+      change: "+12%",
+      description: "from last month",
+      icon: Users,
+    },
+    {
+      title: "Active Patients",
+      value: "84",
+      change: "+8%",
+      description: "from last week",
+      icon: Activity,
+    },
+    {
+      title: "Nursing Assessments",
+      value: "56",
+      change: "+14%",
+      description: "this week",
+      icon: ClipboardCheck,
+    },
+    {
+      title: "Available Beds",
+      value: "24",
+      change: "18%",
+      description: "of total capacity",
+      icon: BedDouble,
+    },
+  ];
+
+  return (
+    <div className="dashboard">
+      <div className="page-heading">
+        <div>
+          <p className="page-eyebrow">
+            OVERVIEW
+          </p>
+
+          <h1>Dashboard</h1>
 
           <p>
-            Here's what's happening with your nursing activities today.
+            Welcome back, Nurse Staff. Here's what's
+            happening today.
           </p>
         </div>
 
-        <button className="primary-button">
-          + New Assessment
-        </button>
-      </div>
-
-      <div className="stats-grid">
-        <div className="stat-card">
-          <span>Total Patients</span>
-          <strong>128</strong>
-          <small>+8 this month</small>
-        </div>
-
-        <div className="stat-card">
-          <span>Today's Patients</span>
-          <strong>24</strong>
-          <small>6 require attention</small>
-        </div>
-
-        <div className="stat-card">
-          <span>Pending Assessments</span>
-          <strong>7</strong>
-          <small>Need review</small>
-        </div>
-
-        <div className="stat-card">
-          <span>Care Plans</span>
-          <strong>42</strong>
-          <small>Active care plans</small>
+        <div className="dashboard-date">
+          Tuesday, August 18, 2026
         </div>
       </div>
 
-      <div className="dashboard-grid">
-        <section className="dashboard-card">
+      <section className="statistics-grid">
+        {statistics.map((statistic) => {
+          const Icon = statistic.icon;
+
+          return (
+            <div
+              className="stat-card"
+              key={statistic.title}
+            >
+              <div className="stat-card-top">
+                <div className="stat-icon">
+                  <Icon size={21} />
+                </div>
+
+                <button className="stat-action">
+                  <ArrowUpRight size={17} />
+                </button>
+              </div>
+
+              <p>{statistic.title}</p>
+
+              <div className="stat-value">
+                {statistic.value}
+              </div>
+
+              <div className="stat-change">
+                <span>{statistic.change}</span>
+                {statistic.description}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+
+      <section className="dashboard-grid">
+        <div className="dashboard-card">
           <div className="card-header">
             <div>
               <h2>Recent Patients</h2>
-              <p>Recently accessed patient records</p>
+              <p>Recently registered patients</p>
             </div>
 
-            <button className="text-button">
-              View all
-            </button>
+            <button>View all</button>
           </div>
 
-          <div className="empty-state">
-            <p>Patient data will appear here.</p>
-          </div>
-        </section>
+          <div className="patient-list">
+            <div className="patient-row">
+              <div className="patient-avatar">
+                AS
+              </div>
 
-        <section className="dashboard-card">
+              <div className="patient-details">
+                <strong>Andi Saputra</strong>
+                <span>MRN-2026-00124</span>
+              </div>
+
+              <span className="patient-status">
+                Active
+              </span>
+            </div>
+
+            <div className="patient-row">
+              <div className="patient-avatar">
+                DW
+              </div>
+
+              <div className="patient-details">
+                <strong>Dewi Wulandari</strong>
+                <span>MRN-2026-00123</span>
+              </div>
+
+              <span className="patient-status">
+                Active
+              </span>
+            </div>
+
+            <div className="patient-row">
+              <div className="patient-avatar">
+                RP
+              </div>
+
+              <div className="patient-details">
+                <strong>Rizky Pratama</strong>
+                <span>MRN-2026-00121</span>
+              </div>
+
+              <span className="patient-status">
+                Active
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="dashboard-card">
           <div className="card-header">
             <div>
               <h2>Today's Tasks</h2>
@@ -69,11 +162,54 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="empty-state">
-            <p>No pending tasks.</p>
+          <div className="task-list">
+            <div className="task-item">
+              <div className="task-icon">
+                <UserRound size={18} />
+              </div>
+
+              <div>
+                <strong>Patient assessment</strong>
+                <span>12 patients pending</span>
+              </div>
+
+              <span className="task-count">
+                12
+              </span>
+            </div>
+
+            <div className="task-item">
+              <div className="task-icon">
+                <ClipboardCheck size={18} />
+              </div>
+
+              <div>
+                <strong>Care plan review</strong>
+                <span>6 plans require review</span>
+              </div>
+
+              <span className="task-count">
+                6
+              </span>
+            </div>
+
+            <div className="task-item">
+              <div className="task-icon">
+                <Activity size={18} />
+              </div>
+
+              <div>
+                <strong>Vital signs</strong>
+                <span>8 measurements due</span>
+              </div>
+
+              <span className="task-count">
+                8
+              </span>
+            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
