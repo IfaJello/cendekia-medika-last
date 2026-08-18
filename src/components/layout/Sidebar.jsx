@@ -13,7 +13,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../utils/auth";
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
 
   const navigation = [
@@ -50,7 +50,7 @@ function Sidebar() {
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
       <div className="sidebar-brand">
         <div className="sidebar-logo">
           <img
@@ -77,6 +77,7 @@ function Sidebar() {
             <NavLink
               key={item.path}
               to={item.path}
+              onClick={onClose}
               className={({ isActive }) =>
                 `sidebar-link ${isActive ? "active" : ""}`
               }
@@ -93,6 +94,7 @@ function Sidebar() {
 
         <NavLink
           to="/settings"
+          onClick={onClose}
           className={({ isActive }) =>
             `sidebar-link ${isActive ? "active" : ""}`
           }

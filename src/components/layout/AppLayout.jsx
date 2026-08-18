@@ -6,21 +6,28 @@ import Topbar from "./Topbar";
 function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+
   return (
     <div className="app-layout">
-      <Sidebar />
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={closeSidebar}
+      />
 
       {sidebarOpen && (
         <button
           className="sidebar-overlay"
-          onClick={() => setSidebarOpen(false)}
-          aria-label="Close menu"
+          onClick={closeSidebar}
+          aria-label="Close navigation menu"
         />
       )}
 
       <div className="main-area">
         <Topbar
-          onMenuClick={() => setSidebarOpen(!sidebarOpen)}
+          onMenuClick={() => setSidebarOpen(true)}
         />
 
         <main className="page-content">

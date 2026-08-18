@@ -317,6 +317,10 @@ body {
     transition: transform 0.25s ease;
   }
 
+  .sidebar.open {
+    transform: translateX(0);
+}
+
   .mobile-menu-button {
     width: 36px;
     height: 36px;
