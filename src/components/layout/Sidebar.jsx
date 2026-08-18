@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "../../utils/auth";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -104,7 +105,10 @@ function Sidebar() {
       <div className="sidebar-bottom">
         <button
           className="logout-button"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            logoutUser();
+            navigate("/");
+          }}
         >
           <LogOut size={19} />
           <span>Sign out</span>

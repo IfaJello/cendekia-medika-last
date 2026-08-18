@@ -8,23 +8,29 @@ import {
 import AppLayout from "../components/layout/AppLayout";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
+import { isAuthenticated } from "../utils/auth";
+
+function ProtectedRoute() {
+  if (!isAuthenticated()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <AppLayout />;
+}
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Authentication */}
         <Route path="/" element={<Login />} />
 
-        {/* Main application */}
-        <Route element={<AppLayout />}>
+        <Route element={<ProtectedRoute />}>
           <Route
             path="/dashboard"
             element={<Dashboard />}
           />
         </Route>
 
-        {/* Fallback */}
         <Route
           path="*"
           element={<Navigate to="/" replace />}

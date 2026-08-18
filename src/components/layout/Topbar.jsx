@@ -4,8 +4,11 @@ import {
   Menu,
   Search,
 } from "lucide-react";
+import { getCurrentUser } from "../../utils/auth";
 
 function Topbar({ onMenuClick }) {
+  const user = getCurrentUser();
+  
   return (
     <header className="topbar">
       <div className="topbar-left">
@@ -42,8 +45,13 @@ function Topbar({ onMenuClick }) {
           </div>
 
           <div className="user-info">
-            <strong>Nurse Staff</strong>
-            <span>Registered Nurse</span>
+            <strong>
+              {user?.name || "Nurse Staff"}
+            </strong>
+
+            <span>
+              {user?.role || "Registered Nurse"}
+            </span>
           </div>
 
           <ChevronDown size={16} />

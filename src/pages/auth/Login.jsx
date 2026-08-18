@@ -3,6 +3,7 @@ import { Eye, EyeOff, LockKeyhole, UserRound } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../../assets/images/cendekia-medika-logo.png";
+import { loginUser } from "../../utils/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -14,11 +15,13 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Temporary frontend login.
-    // Real authentication will be connected later.
-    if (username && password) {
-      navigate("/dashboard");
+    if (!username || !password) {
+      return;
     }
+
+    loginUser(username);
+
+    navigate("/dashboard");
   };
 
   return (
