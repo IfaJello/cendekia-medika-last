@@ -5,68 +5,87 @@ import {
   Save,
   UserRound,
 } from "lucide-react";
+
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { patients } from "../../data/patients";
+
 import {
   sdkid,
   slki,
   siki
 } from "../../data/nursing-standard";
 
-console.log("SDKI:", sdkid);
-console.log("SLKI:", slki);
-console.log("SIKI:", siki);
+import DiagnosisSearch
+from "../../components/nursing/DiagnosisSearch";
 
 import "./NursingDiagnosis.css";
 
 
 function NursingDiagnosis() {
+
   const navigate = useNavigate();
+
   const { patientId } = useParams();
+
 
   const patient = patients.find(
     (item) => item.id === patientId
   );
 
+
   const [selectedDiagnosis, setSelectedDiagnosis] =
+    useState(null);
+
+
+  const [search, setSearch] =
     useState("");
+
 
   const [relatedFactors, setRelatedFactors] =
     useState("");
 
+
   const [characteristics, setCharacteristics] =
     useState([]);
 
-  const [saved, setSaved] = useState(false);
+
+  const [saved, setSaved] =
+    useState(false);
 
 
-  const diagnosis =
-    sdkid.find(
-      (item) =>
-        item.name === selectedDiagnosis
-    );
+
+  const diagnosis = selectedDiagnosis;
+
 
 
   const selectedSLKI =
     slki.find(
       (item) =>
-        item.diagnosis === selectedDiagnosis
+        item.code === diagnosis?.slki?.[0]
     );
+
 
 
   const selectedSIKI =
     siki.find(
       (item) =>
-        item.diagnosis === selectedDiagnosis
+        item.code === diagnosis?.siki?.[0]
     );
 
 
+
   if (!patient) {
+
     return (
+
       <div className="patient-not-found">
-        <h2>Patient not found</h2>
+
+        <h2>
+          Patient not found
+        </h2>
+
 
         <button
           className="primary-button"
@@ -76,30 +95,88 @@ function NursingDiagnosis() {
         >
           Back to Patients
         </button>
+
       </div>
+
     );
+
   }
 
 
+
+
   const toggleCharacteristic = (item) => {
-    setCharacteristics((current) =>
+
+    setCharacteristics((current)=>
+
       current.includes(item)
-        ? current.filter(
-            (value) => value !== item
-          )
-        : [
-            ...current,
-            item
-          ]
+
+      ?
+
+      current.filter(
+        (value)=>value !== item
+      )
+
+      :
+
+      [
+        ...current,
+        item
+      ]
+
     );
 
+
     setSaved(false);
+
   };
 
 
-  const saveDiagnosis = () => {
+
+
+
+  const handleDiagnosisSelect = (item)=>{
+
+
+    setSelectedDiagnosis(item);
+
+
+    setRelatedFactors(
+
+      item.relatedFactors?.join(", ")
+
+      ||
+
+      ""
+
+    );
+
+
+    setCharacteristics(
+
+      item.definingCharacteristics
+
+      ||
+
+      []
+
+    );
+
+
+    setSaved(false);
+
+  };
+
+
+
+
+
+
+  const saveDiagnosis = ()=>{
+
 
     const diagnosisData = {
+
       patientId: patient.id,
 
       sdkid: diagnosis,
@@ -109,158 +186,215 @@ function NursingDiagnosis() {
       definingCharacteristics:
         characteristics,
 
+
       slki:
         selectedSLKI,
+
 
       siki:
         selectedSIKI,
 
-      status: "active",
+
+      status:"active",
+
 
       createdAt:
         new Date().toISOString()
+
     };
 
 
+
     localStorage.setItem(
+
       `nursing_diagnosis_${patient.id}`,
+
       JSON.stringify(
         diagnosisData
       )
+
     );
 
 
+
     setSaved(true);
+
   };
 
 
+
+
+
   return (
+
     <div className="diagnosis-page">
 
+
       <button
+
         className="back-button"
-        onClick={() =>
-          navigate(
-            `/patients/${patient.id}`
-          )
-        }
+
+        onClick={()=>navigate(
+          `/patients/${patient.id}`
+        )}
+
       >
+
         <ArrowLeft size={17}/>
+
         Back to Patient
+
       </button>
+
+
+
 
 
       <div className="diagnosis-header">
 
+
         <div className="patient-mini">
 
+
           <div className="patient-mini-avatar">
+
             <UserRound size={25}/>
+
           </div>
 
 
+
           <div>
+
             <h1>
               {patient.name}
             </h1>
 
+
             <p>
+
               {patient.id}
+
               {" · "}
+
               {patient.room}
+
               {" · Bed "}
+
               {patient.bed}
+
             </p>
+
+
           </div>
+
 
         </div>
 
 
+
+
         <div>
+
           <span className="page-label">
+
             NURSING PROCESS
+
           </span>
+
 
           <h2>
             Nursing Diagnosis
           </h2>
 
+
           <p>
-            SDKI based nursing diagnosis
-            documentation.
+            SDKI based nursing diagnosis documentation.
           </p>
+
+
         </div>
 
+
       </div>
+
+
+
+
 
 
 
       <div className="diagnosis-layout">
 
 
+
         <main>
 
 
+
+
           <section className="diagnosis-card">
 
+
             <SectionTitle
+
               icon={<ClipboardCheck size={18}/>}
+
               title="SDKI Diagnosis"
-              description="Select the patient's nursing diagnosis."
+
+              description="Search and select nursing diagnosis."
+
             />
 
 
-            <label>
-              Nursing Diagnosis
-            </label>
 
+            <DiagnosisSearch
 
-            <select
-              value={selectedDiagnosis}
-              onChange={(event)=> {
-                setSelectedDiagnosis(
-                  event.target.value
-                );
+              diagnoses={sdkid}
 
-                setSaved(false);
-              }}
-            >
+              search={search}
 
-              <option value="">
-                Select diagnosis
-              </option>
+              setSearch={setSearch}
 
+              onSelect={handleDiagnosisSelect}
 
-              {sdkid.map((item)=>(
-                <option
-                  key={item.code}
-                  value={item.name}
-                >
-                  {item.code}
-                  {" - "}
-                  {item.name}
-                </option>
-              ))}
-
-            </select>
+            />
 
 
 
-            {diagnosis && (
 
-              <div className="diagnosis-info">
 
-                <strong>
-                  {diagnosis.name}
-                </strong>
+            {
+              diagnosis && (
 
-                <p>
-                  {diagnosis.definition}
-                </p>
+                <div className="diagnosis-info">
 
-              </div>
 
-            )}
+                  <strong>
+
+                    {diagnosis.code}
+
+                    {" - "}
+
+                    {diagnosis.name}
+
+                  </strong>
+
+
+
+                  <p>
+
+                    {diagnosis.definition}
+
+                  </p>
+
+
+                </div>
+
+              )
+
+            }
+
 
           </section>
 
@@ -268,24 +402,36 @@ function NursingDiagnosis() {
 
 
 
+
+
+
           <section className="diagnosis-card">
 
+
             <SectionTitle
+
               title="Related Factors"
+
               description="Etiology or contributing factors."
+
             />
+
 
 
             <textarea
+
               rows="4"
-              placeholder="Example: tissue injury, physiological factors..."
+
               value={relatedFactors}
-              onChange={(event)=>
+
+              onChange={(e)=>
                 setRelatedFactors(
-                  event.target.value
+                  e.target.value
                 )
               }
+
             />
+
 
           </section>
 
@@ -293,64 +439,61 @@ function NursingDiagnosis() {
 
 
 
+
+
+
+
           <section className="diagnosis-card">
 
+
             <SectionTitle
+
               title="Defining Characteristics"
-              description="Signs and symptoms supporting the diagnosis."
+
+              description="Signs and symptoms."
+
             />
 
 
 
             <div className="checkbox-list">
 
-              <CheckItem
-                label="Reports pain"
-                checked={
-                  characteristics.includes(
-                    "Reports pain"
-                  )
-                }
-                onClick={() =>
-                  toggleCharacteristic(
-                    "Reports pain"
-                  )
-                }
-              />
+
+              {
+                characteristics.map(
+                  (item)=>(
 
 
-              <CheckItem
-                label="Increased pain scale"
-                checked={
-                  characteristics.includes(
-                    "Increased pain scale"
-                  )
-                }
-                onClick={() =>
-                  toggleCharacteristic(
-                    "Increased pain scale"
-                  )
-                }
-              />
+                    <CheckItem
+
+                      key={item}
+
+                      label={item}
+
+                      checked={true}
+
+                      onClick={()=>
+                        toggleCharacteristic(item)
+                      }
+
+                    />
 
 
-              <CheckItem
-                label="Restlessness"
-                checked={
-                  characteristics.includes(
-                    "Restlessness"
                   )
-                }
-                onClick={() =>
-                  toggleCharacteristic(
-                    "Restlessness"
-                  )
-                }
-              />
+
+                )
+
+              }
+
 
             </div>
 
+
+
           </section>
+
+
+
 
 
 
@@ -359,47 +502,62 @@ function NursingDiagnosis() {
 
           <section className="diagnosis-card">
 
+
             <SectionTitle
+
               icon={<HeartPulse size={18}/>}
+
               title="SLKI Expected Outcome"
+
               description="Expected nursing outcomes."
+
             />
 
 
-            {selectedSLKI ? (
 
-              <div className="standard-box">
+            {
 
-                <strong>
-                  {selectedSLKI.outcomes[0].code}
-                  {" - "}
-                  {selectedSLKI.outcomes[0].name}
-                </strong>
+              selectedSLKI ?
 
 
-                <ul>
+              (
 
-                  {selectedSLKI.outcomes[0]
-                    .indicators
-                    .map((item)=>(
-                      <li key={item}>
-                        {item}
-                      </li>
-                    ))}
+                <div className="standard-box">
 
-                </ul>
+                  <strong>
 
-              </div>
+                    {selectedSLKI.name}
 
-            ) : (
+                  </strong>
 
-              <p className="empty-text">
-                Select diagnosis to display SLKI.
-              </p>
 
-            )}
+                </div>
+
+              )
+
+
+              :
+
+
+              (
+
+                <p className="empty-text">
+
+                  Select diagnosis to display SLKI.
+
+                </p>
+
+              )
+
+
+            }
+
+
 
           </section>
+
+
+
 
 
 
@@ -408,46 +566,59 @@ function NursingDiagnosis() {
 
           <section className="diagnosis-card">
 
+
             <SectionTitle
+
               title="SIKI Intervention"
+
               description="Recommended nursing intervention."
+
             />
 
 
-            {selectedSIKI ? (
 
-              <div className="standard-box">
+            {
 
-                <strong>
-                  {selectedSIKI.interventions[0].code}
-                  {" - "}
-                  {selectedSIKI.interventions[0].name}
-                </strong>
+              selectedSIKI ?
 
 
-                <ul>
+              (
 
-                {selectedSIKI.interventions[0]
-                  .actions
-                  .map((item)=>(
-                    <li key={item}>
-                      {item}
-                    </li>
-                  ))}
+                <div className="standard-box">
 
-                </ul>
+                  <strong>
 
-              </div>
+                    {selectedSIKI.name}
 
-            ) : (
+                  </strong>
 
-              <p className="empty-text">
-                Select diagnosis to display SIKI.
-              </p>
 
-            )}
+                </div>
+
+              )
+
+
+              :
+
+
+              (
+
+                <p className="empty-text">
+
+                  Select diagnosis to display SIKI.
+
+                </p>
+
+              )
+
+
+            }
+
+
 
           </section>
+
+
 
 
         </main>
@@ -456,9 +627,14 @@ function NursingDiagnosis() {
 
 
 
+
+
+
         <aside>
 
+
           <section className="summary-card">
+
 
             <span>
               PATIENT
@@ -470,19 +646,20 @@ function NursingDiagnosis() {
             </h3>
 
 
+
             <p>
               {patient.diagnosis}
             </p>
 
 
-            <hr/>
 
 
             <button
+
               className="save-button"
-              onClick={
-                saveDiagnosis
-              }
+
+              onClick={saveDiagnosis}
+
             >
 
               <Save size={16}/>
@@ -492,24 +669,38 @@ function NursingDiagnosis() {
             </button>
 
 
+
+
             {
+
               saved &&
+
               <small className="saved-text">
+
                 Diagnosis saved
+
               </small>
+
             }
+
 
 
           </section>
 
 
+
         </aside>
+
 
 
       </div>
 
+
+
     </div>
+
   );
+
 }
 
 
@@ -522,14 +713,23 @@ function SectionTitle({
   description
 }) {
 
+
   return (
+
     <div className="section-title">
 
-      {icon &&
+
+      {
+        icon &&
+
         <div className="section-icon">
+
           {icon}
+
         </div>
+
       }
+
 
 
       <div>
@@ -538,14 +738,19 @@ function SectionTitle({
           {title}
         </h3>
 
+
         <p>
           {description}
         </p>
 
+
       </div>
 
+
     </div>
+
   );
+
 }
 
 
@@ -558,24 +763,36 @@ function CheckItem({
   onClick
 }) {
 
+
   return (
+
     <button
+
       className={
         checked
-        ? "check-item checked"
-        : "check-item"
+        ?
+        "check-item checked"
+        :
+        "check-item"
       }
+
+
       onClick={onClick}
+
     >
 
       <span>
-        {checked ? "✓" : ""}
+        ✓
       </span>
+
 
       {label}
 
+
     </button>
+
   );
+
 }
 
 
