@@ -525,10 +525,25 @@ function NursingDiagnosis() {
                 <div className="standard-box">
 
                   <strong>
-
+                    {selectedSLKI.code}
+                    {" - "}
                     {selectedSLKI.name}
-
                   </strong>
+
+
+                  <ul>
+
+                    {
+                      selectedSLKI.indicators?.map(
+                        (item)=>(
+                          <li key={item}>
+                            {item}
+                          </li>
+                        )
+                      )
+                    }
+
+                  </ul>
 
 
                 </div>
@@ -587,10 +602,25 @@ function NursingDiagnosis() {
                 <div className="standard-box">
 
                   <strong>
-
+                    {selectedSIKI.code}
+                    {" - "}
                     {selectedSIKI.name}
-
                   </strong>
+
+
+                  <ul>
+
+                    {
+                      selectedSIKI.actions?.map(
+                        (item)=>(
+                          <li key={item}>
+                            {item}
+                          </li>
+                        )
+                      )
+                    }
+
+                  </ul>
 
 
                 </div>
