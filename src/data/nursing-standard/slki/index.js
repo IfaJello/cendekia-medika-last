@@ -1,1 +1,8 @@
-export const slki = [];
+import { painOutcomes } from "./pain";
+
+
+export const slki = [
+
+  ...painOutcomes
+
+];
