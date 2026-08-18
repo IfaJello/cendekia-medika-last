@@ -92,7 +92,54 @@ export const physiologicalDiagnoses = [
     ],
 
     siki: [
+      "I.01011",
       "I.01014"
     ]
+  },
+
+  {
+    code: "D.0001",
+
+    name: "Bersihan Jalan Napas Tidak Efektif",
+
+    domain: "Fisiologis",
+
+    class: "Respirasi",
+
+    definition:
+      "Ketidakmampuan membersihkan sekret atau obstruksi jalan napas untuk mempertahankan jalan napas tetap paten.",
+
+
+    relatedFactors: [
+      "Hipersekresi jalan napas",
+      "Sekresi yang tertahan",
+      "Spasme jalan napas",
+      "Infeksi saluran napas"
+    ],
+
+
+    definingCharacteristics: [
+
+      "Batuk tidak efektif",
+
+      "Produksi sputum meningkat",
+
+      "Suara napas tambahan",
+
+      "Dispnea"
+
+    ],
+
+
+    slki:[
+      "L.01003"
+    ],
+
+
+    siki:[
+      "I.01011",
+      "I.01014"
+    ]
+
   }
 ];
