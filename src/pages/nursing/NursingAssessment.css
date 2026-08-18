@@ -1,0 +1,550 @@
+.assessment-page {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-bottom: 90px;
+}
+
+.assessment-patient-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 25px;
+  padding: 18px 20px;
+  border: 1px solid #e5e9ed;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.assessment-patient-avatar {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e8f7f4;
+  color: #189f8e;
+}
+
+.assessment-patient-info > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.assessment-patient-info h1 {
+  margin: 0;
+  color: #26323d;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.assessment-patient-info p {
+  margin: 6px 0 0;
+  color: #8b929b;
+  font-size: 10px;
+}
+
+.assessment-status {
+  padding: 4px 7px;
+  border-radius: 5px;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.assessment-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.assessment-heading h2 {
+  margin: 4px 0 5px;
+  color: #26323d;
+  font-size: 19px;
+}
+
+.assessment-heading > div > p:last-child {
+  margin: 0;
+  color: #8b929b;
+  font-size: 10px;
+}
+
+.page-eyebrow {
+  margin: 0;
+  color: #189f8e;
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 1px;
+}
+
+.saved-indicator {
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 9px;
+  font-weight: 650;
+}
+
+/* Layout */
+
+.assessment-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 18px;
+}
+
+.assessment-card {
+  margin-bottom: 18px;
+  padding: 20px;
+  border: 1px solid #e5e9ed;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.assessment-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-bottom: 20px;
+}
+
+.section-header-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 7px;
+  background: #e9f7f5;
+  color: #189f8e;
+}
+
+.assessment-section-header h3 {
+  margin: 1px 0 4px;
+  color: #374151;
+  font-size: 13px;
+}
+
+.assessment-section-header p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* Form */
+
+.form-grid {
+  display: grid;
+  gap: 15px;
+}
+
+.form-grid.three-columns {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.form-grid.two-columns {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.form-field {
+  min-width: 0;
+}
+
+.form-field > label {
+  display: block;
+  margin-bottom: 7px;
+  color: #59636f;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.field-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.field-control input,
+.field-control select,
+.field-control textarea {
+  width: 100%;
+  border: 1px solid #dfe4e8;
+  border-radius: 7px;
+  outline: none;
+  background: #ffffff;
+  color: #374151;
+  font: inherit;
+  font-size: 11px;
+  transition: border-color 0.15s ease;
+}
+
+.field-control input,
+.field-control select {
+  height: 39px;
+  padding: 0 11px;
+}
+
+.field-control textarea {
+  min-height: 75px;
+  padding: 10px 11px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field-control input:focus,
+.field-control select:focus,
+.field-control textarea:focus {
+  border-color: #189f8e;
+}
+
+.field-control input::placeholder,
+.field-control textarea::placeholder {
+  color: #b1b7be;
+}
+
+.form-field > small {
+  display: block;
+  margin-top: 5px;
+  color: #a0a7ae;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.field-unit {
+  position: absolute;
+  right: 10px;
+  color: #9ca3af;
+  font-size: 9px;
+  pointer-events: none;
+}
+
+.field-control input:has(+ .field-unit) {
+  padding-right: 35px;
+}
+
+/* Blood pressure */
+
+.input-pair {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.input-pair input {
+  min-width: 0;
+  flex: 1;
+}
+
+.input-pair span {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.input-pair small {
+  color: #9ca3af;
+  font-size: 8px;
+}
+
+/* Pain */
+
+.pain-field {
+  padding: 8px 3px 2px;
+}
+
+.pain-score-display {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 15px;
+}
+
+.pain-score-display strong {
+  color: #189f8e;
+  font-size: 26px;
+}
+
+.pain-score-display span {
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+.pain-range {
+  width: 100%;
+  accent-color: #189f8e;
+  cursor: pointer;
+}
+
+.pain-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: #9ca3af;
+  font-size: 8px;
+}
+
+/* Sidebar */
+
+.assessment-sidebar {
+  min-width: 0;
+}
+
+.assessment-summary-card,
+.assessment-sidebar-note {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid #e5e9ed;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.summary-label,
+.assessment-sidebar-note > span {
+  display: block;
+  margin-bottom: 13px;
+  color: #9ca3af;
+  font-size: 8px;
+  font-weight: 750;
+  letter-spacing: 0.8px;
+}
+
+.summary-patient {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.summary-avatar {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e9f7f5;
+  color: #189f8e;
+}
+
+.summary-patient div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.summary-patient strong {
+  overflow: hidden;
+  color: #374151;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-patient span {
+  color: #9ca3af;
+  font-size: 8px;
+}
+
+.summary-divider {
+  height: 1px;
+  margin: 16px 0;
+  background: #eef0f2;
+}
+
+.summary-item {
+  padding: 9px 0;
+  border-bottom: 1px solid #f0f2f4;
+}
+
+.summary-item:last-child {
+  border-bottom: 0;
+}
+
+.summary-item > span {
+  display: block;
+  margin-bottom: 4px;
+  color: #9ca3af;
+  font-size: 8px;
+}
+
+.summary-item > strong {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #4b5563;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.assessment-sidebar-note {
+  background: #f8fcfb;
+  border-color: #d9eeea;
+}
+
+.assessment-sidebar-note > span {
+  color: #189f8e;
+}
+
+.assessment-sidebar-note > strong {
+  display: block;
+  color: #374151;
+  font-size: 11px;
+}
+
+.assessment-sidebar-note p {
+  margin: 7px 0 0;
+  color: #8b929b;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+/* Bottom actions */
+
+.assessment-actions {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  left: 250px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  padding: 12px 28px;
+  border-top: 1px solid #e5e9ed;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+}
+
+.secondary-button,
+.save-draft-button,
+.complete-button {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 14px;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.secondary-button {
+  border: 1px solid #dfe4e8;
+  background: #ffffff;
+  color: #6b7280;
+}
+
+.save-draft-button {
+  border: 1px solid #b9e2dc;
+  background: #ffffff;
+  color: #189f8e;
+}
+
+.complete-button {
+  border: 0;
+  background: #189f8e;
+  color: #ffffff;
+}
+
+.secondary-button:hover {
+  background: #f8fafc;
+}
+
+.save-draft-button:hover {
+  background: #f1faf8;
+}
+
+.complete-button:hover {
+  background: #148b7c;
+}
+
+/* Not found */
+
+.assessment-not-found {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.assessment-not-found h2 {
+  margin: 0 0 8px;
+  color: #374151;
+}
+
+.assessment-not-found p {
+  margin: 0 0 20px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+  .assessment-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .assessment-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .assessment-summary-card,
+  .assessment-sidebar-note {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .assessment-actions {
+    left: 0;
+    padding: 10px 16px;
+  }
+
+  .form-grid.three-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .assessment-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .assessment-patient-header {
+    align-items: flex-start;
+  }
+
+  .form-grid.three-columns,
+  .form-grid.two-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .assessment-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .assessment-actions {
+    justify-content: stretch;
+  }
+
+  .secondary-button,
+  .save-draft-button,
+  .complete-button {
+    flex: 1;
+    padding: 0 8px;
+  }
+}

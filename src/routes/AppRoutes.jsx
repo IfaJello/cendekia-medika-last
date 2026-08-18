@@ -11,6 +11,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import { isAuthenticated } from "../utils/auth";
 import Patients from "../pages/patients/Patients";
 import PatientProfile from "../pages/patients/PatientProfile";
+import NursingAssessment from "../pages/nursing/NursingAssessment";
 
 function ProtectedRoute() {
   if (!isAuthenticated()) {
@@ -40,6 +41,11 @@ function AppRoutes() {
           <Route
             path="/patients/:patientId"
             element={<PatientProfile />}
+          />
+
+          <Route
+            path="/patients/:patientId/assessment"
+            element={<NursingAssessment />}
           />
         </Route>
 

@@ -204,65 +204,65 @@ function PatientProfile() {
             </div>
 
             <div className="nursing-actions">
-              <button
+            <button
                 className="nursing-action"
                 onClick={() =>
-                  alert(
-                    "Nursing assessment will be added next."
-                  )
+                navigate(
+                    `/patients/${patient.id}/assessment`
+                )
                 }
-              >
+            >
                 <div className="nursing-action-icon">
-                  <ClipboardList size={19} />
+                <ClipboardList size={19} />
                 </div>
 
                 <div>
-                  <strong>Nursing Assessment</strong>
-                  <span>
+                <strong>Nursing Assessment</strong>
+                <span>
                     Record the patient's current assessment.
-                  </span>
+                </span>
                 </div>
-              </button>
+            </button>
 
-              <button
+            <button
                 className="nursing-action"
                 onClick={() =>
-                  alert(
+                alert(
                     "Nursing care plan will be added next."
-                  )
+                )
                 }
-              >
+            >
                 <div className="nursing-action-icon">
-                  <HeartPulse size={19} />
+                <HeartPulse size={19} />
                 </div>
 
                 <div>
-                  <strong>Nursing Care Plan</strong>
-                  <span>
+                <strong>Nursing Care Plan</strong>
+                <span>
                     View and manage the nursing care plan.
-                  </span>
+                </span>
                 </div>
-              </button>
+            </button>
 
-              <button
+            <button
                 className="nursing-action"
                 onClick={() =>
-                  alert(
+                alert(
                     "Documentation will be added next."
-                  )
+                )
                 }
-              >
+            >
                 <div className="nursing-action-icon">
-                  <FileText size={19} />
+                <FileText size={19} />
                 </div>
 
                 <div>
-                  <strong>Nursing Documentation</strong>
-                  <span>
+                <strong>Nursing Documentation</strong>
+                <span>
                     Review nursing documentation and notes.
-                  </span>
+                </span>
                 </div>
-              </button>
+            </button>
             </div>
           </section>
         </main>
