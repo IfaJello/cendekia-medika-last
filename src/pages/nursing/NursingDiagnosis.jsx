@@ -1,7 +1,6 @@
 import {
   ArrowLeft,
   ClipboardCheck,
-  HeartPulse,
   Save,
   UserRound,
 } from "lucide-react";
@@ -12,13 +11,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { patients } from "../../data/patients";
 
 import {
-  sdkid,
-  slki,
-  siki
-} from "../../data/nursing-standard";
+  sdkiDiagnoses,
+} from "../../data/nursing/sdki";
 
-import DiagnosisSearch
-from "../../components/nursing/DiagnosisSearch";
+import DiagnosisSearch from "../../components/nursing/DiagnosisSearch";
 
 import "./NursingDiagnosis.css";
 
@@ -60,22 +56,6 @@ function NursingDiagnosis() {
 
 
 
-  const selectedSLKI =
-    slki.find(
-      (item) =>
-        item.code === diagnosis?.slki?.[0]
-    );
-
-
-
-  const selectedSIKI =
-    siki.find(
-      (item) =>
-        item.code === diagnosis?.siki?.[0]
-    );
-
-
-
   if (!patient) {
 
     return (
@@ -105,45 +85,17 @@ function NursingDiagnosis() {
 
 
 
-  const toggleCharacteristic = (item) => {
 
-    setCharacteristics((current)=>
-
-      current.includes(item)
-
-      ?
-
-      current.filter(
-        (value)=>value !== item
-      )
-
-      :
-
-      [
-        ...current,
-        item
-      ]
-
-    );
-
-
-    setSaved(false);
-
-  };
-
-
-
-
-
-  const handleDiagnosisSelect = (item)=>{
+  const handleDiagnosisSelect = (item) => {
 
 
     setSelectedDiagnosis(item);
 
 
+
     setRelatedFactors(
 
-      item.relatedFactors?.join(", ")
+      item.causes?.join(", ")
 
       ||
 
@@ -152,13 +104,45 @@ function NursingDiagnosis() {
     );
 
 
-    setCharacteristics(
 
-      item.definingCharacteristics
+    setCharacteristics([
 
-      ||
+      ...(item.symptoms?.major || []),
 
-      []
+      ...(item.symptoms?.minor || [])
+
+    ]);
+
+
+
+    setSaved(false);
+
+  };
+
+
+
+
+
+
+  const toggleCharacteristic = (item) => {
+
+
+    setCharacteristics((current) =>
+
+      current.includes(item)
+
+        ?
+
+        current.filter(
+          (value) => value !== item
+        )
+
+        :
+
+        [
+          ...current,
+          item
+        ]
 
     );
 
@@ -172,30 +156,27 @@ function NursingDiagnosis() {
 
 
 
-  const saveDiagnosis = ()=>{
+  const saveDiagnosis = () => {
 
 
     const diagnosisData = {
 
+
       patientId: patient.id,
 
-      sdkid: diagnosis,
+
+      sdkI: diagnosis,
+
 
       relatedFactors,
+
 
       definingCharacteristics:
         characteristics,
 
 
-      slki:
-        selectedSLKI,
-
-
-      siki:
-        selectedSIKI,
-
-
-      status:"active",
+      status:
+        "active",
 
 
       createdAt:
@@ -225,18 +206,22 @@ function NursingDiagnosis() {
 
 
 
+
   return (
 
     <div className="diagnosis-page">
+
 
 
       <button
 
         className="back-button"
 
-        onClick={()=>navigate(
-          `/patients/${patient.id}`
-        )}
+        onClick={() =>
+          navigate(
+            `/patients/${patient.id}`
+          )
+        }
 
       >
 
@@ -245,6 +230,7 @@ function NursingDiagnosis() {
         Back to Patient
 
       </button>
+
 
 
 
@@ -338,7 +324,9 @@ function NursingDiagnosis() {
 
             <SectionTitle
 
-              icon={<ClipboardCheck size={18}/>}
+              icon={
+                <ClipboardCheck size={18}/>
+              }
 
               title="SDKI Diagnosis"
 
@@ -350,7 +338,7 @@ function NursingDiagnosis() {
 
             <DiagnosisSearch
 
-              diagnoses={sdkid}
+              diagnoses={sdkiDiagnoses}
 
               search={search}
 
@@ -372,7 +360,7 @@ function NursingDiagnosis() {
 
                   <strong>
 
-                    {diagnosis.code}
+                    {diagnosis.id}
 
                     {" - "}
 
@@ -425,9 +413,11 @@ function NursingDiagnosis() {
               value={relatedFactors}
 
               onChange={(e)=>
+
                 setRelatedFactors(
                   e.target.value
                 )
+
               }
 
             />
@@ -461,8 +451,8 @@ function NursingDiagnosis() {
 
               {
                 characteristics.map(
-                  (item)=>(
 
+                  (item)=>(
 
                     <CheckItem
 
@@ -472,12 +462,11 @@ function NursingDiagnosis() {
 
                       checked={true}
 
-                      onClick={()=>
+                      onClick={() =>
                         toggleCharacteristic(item)
                       }
 
                     />
-
 
                   )
 
@@ -493,160 +482,6 @@ function NursingDiagnosis() {
           </section>
 
 
-
-
-
-
-
-
-
-          <section className="diagnosis-card">
-
-
-            <SectionTitle
-
-              icon={<HeartPulse size={18}/>}
-
-              title="SLKI Expected Outcome"
-
-              description="Expected nursing outcomes."
-
-            />
-
-
-
-            {
-
-              selectedSLKI ?
-
-
-              (
-
-                <div className="standard-box">
-
-                  <strong>
-                    {selectedSLKI.code}
-                    {" - "}
-                    {selectedSLKI.name}
-                  </strong>
-
-
-                  <ul>
-
-                    {
-                      selectedSLKI.indicators?.map(
-                        (item)=>(
-                          <li key={item}>
-                            {item}
-                          </li>
-                        )
-                      )
-                    }
-
-                  </ul>
-
-
-                </div>
-
-              )
-
-
-              :
-
-
-              (
-
-                <p className="empty-text">
-
-                  Select diagnosis to display SLKI.
-
-                </p>
-
-              )
-
-
-            }
-
-
-
-          </section>
-
-
-
-
-
-
-
-
-
-          <section className="diagnosis-card">
-
-
-            <SectionTitle
-
-              title="SIKI Intervention"
-
-              description="Recommended nursing intervention."
-
-            />
-
-
-
-            {
-
-              selectedSIKI ?
-
-
-              (
-
-                <div className="standard-box">
-
-                  <strong>
-                    {selectedSIKI.code}
-                    {" - "}
-                    {selectedSIKI.name}
-                  </strong>
-
-
-                  <ul>
-
-                    {
-                      selectedSIKI.actions?.map(
-                        (item)=>(
-                          <li key={item}>
-                            {item}
-                          </li>
-                        )
-                      )
-                    }
-
-                  </ul>
-
-
-                </div>
-
-              )
-
-
-              :
-
-
-              (
-
-                <p className="empty-text">
-
-                  Select diagnosis to display SIKI.
-
-                </p>
-
-              )
-
-
-            }
-
-
-
-          </section>
 
 
 
@@ -702,7 +537,6 @@ function NursingDiagnosis() {
 
 
             {
-
               saved &&
 
               <small className="saved-text">
@@ -732,6 +566,8 @@ function NursingDiagnosis() {
   );
 
 }
+
+
 
 
 
@@ -787,6 +623,8 @@ function SectionTitle({
 
 
 
+
+
 function CheckItem({
   label,
   checked,
@@ -824,6 +662,9 @@ function CheckItem({
   );
 
 }
+
+
+
 
 
 
