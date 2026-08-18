@@ -14,7 +14,7 @@ import {
   sdkiDiagnoses,
 } from "../../data/nursing/sdki";
 
-import DiagnosisSearch from "../../components/nursing/DiagnosisSearch";
+import DiagnosisSelector from "../../components/nursing/DiagnosisSelector";
 
 import "./NursingDiagnosis.css";
 
@@ -33,10 +33,6 @@ function NursingDiagnosis() {
 
   const [selectedDiagnosis, setSelectedDiagnosis] =
     useState(null);
-
-
-  const [search, setSearch] =
-    useState("");
 
 
   const [relatedFactors, setRelatedFactors] =
@@ -336,13 +332,7 @@ function NursingDiagnosis() {
 
 
 
-            <DiagnosisSearch
-
-              diagnoses={sdkiDiagnoses}
-
-              search={search}
-
-              setSearch={setSearch}
+            <DiagnosisSelector
 
               onSelect={handleDiagnosisSelect}
 

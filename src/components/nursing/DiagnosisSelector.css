@@ -1,0 +1,87 @@
+.diagnosis-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+.diagnosis-selector section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.diagnosis-selector h4 {
+  margin: 0;
+}
+
+
+.selector-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.selector-button {
+  padding: 10px 14px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  cursor: pointer;
+}
+
+
+.selector-button.active {
+  background: #189f8e;
+
+  color: white;
+
+  border-color: #189f8e;
+}
+
+
+
+.diagnosis-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+
+
+.diagnosis-option {
+
+  display: flex;
+
+  gap: 12px;
+
+  align-items: center;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  cursor: pointer;
+
+  text-align: left;
+
+}
+
+
+.diagnosis-option:hover {
+
+  border-color: #189f8e;
+
+}
