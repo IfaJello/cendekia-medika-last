@@ -9,6 +9,8 @@ import AppLayout from "../components/layout/AppLayout";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import { isAuthenticated } from "../utils/auth";
+import Patients from "../pages/patients/Patients";
+import PatientProfile from "../pages/patients/PatientProfile";
 
 function ProtectedRoute() {
   if (!isAuthenticated()) {
@@ -28,6 +30,16 @@ function AppRoutes() {
           <Route
             path="/dashboard"
             element={<Dashboard />}
+          />
+
+          <Route
+            path="/patients"
+            element={<Patients />}
+          />
+
+          <Route
+            path="/patients/:patientId"
+            element={<PatientProfile />}
           />
         </Route>
 

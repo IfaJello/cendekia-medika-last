@@ -1,0 +1,269 @@
+.patients-page {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.primary-button {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #189f8e;
+  color: #ffffff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(24, 159, 142, 0.15);
+}
+
+.primary-button:hover {
+  background: #148b7c;
+}
+
+/* Toolbar */
+
+.patient-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.patient-search {
+  flex: 1;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid #e1e6eb;
+  border-radius: 9px;
+  background: #ffffff;
+}
+
+.patient-search svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.patient-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #374151;
+  font: inherit;
+  font-size: 12px;
+}
+
+.patient-search input::placeholder {
+  color: #a0a7b0;
+}
+
+.patient-filter {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid #e1e6eb;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #6b7280;
+}
+
+.patient-filter select {
+  min-width: 120px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #374151;
+  font: inherit;
+  font-size: 12px;
+}
+
+/* Summary */
+
+.patient-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.patient-summary > div {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.patient-summary strong {
+  color: #374151;
+  font-size: 13px;
+}
+
+/* Table */
+
+.patients-table-card {
+  overflow: hidden;
+  border: 1px solid #e5e9ed;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.patients-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.patients-table {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+}
+
+.patients-table th {
+  height: 44px;
+  padding: 0 18px;
+  border-bottom: 1px solid #edf0f2;
+  background: #fafbfc;
+  color: #8b929b;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.patients-table td {
+  height: 68px;
+  padding: 0 18px;
+  border-bottom: 1px solid #f0f2f4;
+  color: #4b5563;
+  font-size: 12px;
+}
+
+.patients-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.patients-table tbody tr:hover {
+  background: #f8fbfa;
+}
+
+.patients-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.patient-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 190px;
+}
+
+.patient-list-avatar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #e8f7f4;
+  color: #189f8e;
+}
+
+.patient-name-cell > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-name-cell strong {
+  color: #374151;
+  font-size: 12px;
+}
+
+.patient-name-cell span {
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+.mrn {
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.table-secondary {
+  display: block;
+  margin-top: 4px;
+  color: #9ca3af;
+  font-size: 10px;
+}
+
+.diagnosis {
+  color: #4b5563;
+  font-size: 11px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.status-badge.active {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-badge.discharged {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.table-arrow {
+  color: #b0b7c0;
+}
+
+.empty-patients {
+  height: 160px !important;
+  color: #9ca3af !important;
+  text-align: center;
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .page-heading {
+    align-items: flex-start;
+  }
+
+  .primary-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .patient-toolbar {
+    flex-direction: column;
+  }
+
+  .patient-filter {
+    width: 100%;
+  }
+
+  .patient-filter select {
+    flex: 1;
+  }
+}
