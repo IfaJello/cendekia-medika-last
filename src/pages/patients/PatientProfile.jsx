@@ -227,8 +227,8 @@ function PatientProfile() {
             <button
                 className="nursing-action"
                 onClick={() =>
-                alert(
-                    "Nursing care plan will be added next."
+                navigate(
+                `/patients/${patient.id}/diagnosis`
                 )
                 }
             >
